@@ -1,0 +1,23 @@
+package com.example.demo.repository;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import com.example.demo.modele.AnneeAcademic;
+import com.example.demo.modele.Annonce;
+
+public interface AnnoceRepository extends JpaRepository<Annonce, Long> {
+	List<Annonce> findByTitre(String titre);
+	List<Annonce> findByTitreContains(String nom);
+	/*@QUERY*/
+	/*@Query("select A from Annonce A where A.titre like %:nom")
+	List<Annonce> findByNomPrix (@Param("nom") String nom);*/
+	@Query("select p from Annonce p where p.anneac = ?1 ")
+	List<Annonce> findByAnneac(AnneeAcademic anneac);
+	//List<Annonce> findByAnnneacIdAnnee(Long idAnnee);
+	List<Annonce> findByOrderByTitreAsc();
+	@Query("select p from Produit p order by  p.prixProduit DESC")
+	List<Annonce> trierProduitsNomsPrix ();
+}

@@ -1,0 +1,79 @@
+package com.example.demo.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.example.demo.dto.AnnonceDto;
+import com.example.demo.modele.AnneeAcademic;
+import com.example.demo.modele.Annonce;
+import com.example.demo.repository.AnnoceRepository;
+
+public class Annoceimplservice implements annonceService {
+  @Autowired
+	AnnoceRepository annoncerepo;
+	@Override
+	public AnnonceDto saveAnnonce(Annonce p) {
+		return convertEntityToDto( annoncerepo.save(p));
+	}
+
+	@Override
+	public AnnonceDto updateAnnonce(Annonce p) {
+		// TODO Auto-generated method stub
+		return convertEntityToDto(annoncerepo.save(p));	}
+
+	@Override
+	public void deleteAnnonce(Annonce p) {
+		 produitRepository.delete(p);
+
+	}
+
+	@Override
+	public void deleteAnnonceById(Long id) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public AnnonceDto getProduit(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<AnnonceDto> getAllproduits() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Annonce> findByNomProduit(String nom) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Annonce> findByNomProduitContains(String nom) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Annonce> findByAnneeAcademic(AnneeAcademic annee) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Annonce> findByAnneeAcademicIdAnnee(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Annonce> findByOrderByNomProduitAsc() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

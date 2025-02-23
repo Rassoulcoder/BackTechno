@@ -1,0 +1,79 @@
+package com.gestion.annonce.modele;
+
+import java.io.File;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+@Entity
+public class Document {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long iddoc;
+  private File filcv;
+  private File filmotiv;
+  private File fildiplo;
+  private String format;
+  private Double taille;
+  @ManyToOne
+  private Candidature candidature1;
+public Document() {
+	super();
+	// TODO Auto-generated constructor stub
+}
+public Document(File filcv, File filmotiv, File fildiplo, String format, Double taille, Candidature candidature1) {
+	super();
+	this.filcv = filcv;
+	this.filmotiv = filmotiv;
+	this.fildiplo = fildiplo;
+	this.format = format;
+	this.taille = taille;
+	this.candidature1 = candidature1;
+}
+public Long getIddoc() {
+	return iddoc;
+}
+public void setIddoc(Long iddoc) {
+	this.iddoc = iddoc;
+}
+public File getFilcv() {
+	return filcv;
+}
+public void setFilcv(File filcv) {
+	this.filcv = filcv;
+}
+public File getFilmotiv() {
+	return filmotiv;
+}
+public void setFilmotiv(File filmotiv) {
+	this.filmotiv = filmotiv;
+}
+public File getFildiplo() {
+	return fildiplo;
+}
+public void setFildiplo(File fildiplo) {
+	this.fildiplo = fildiplo;
+}
+public String getFormat() {
+	return format;
+}
+public void setFormat(String format) {
+	this.format = format;
+}
+public Double getTaille() {
+	return taille;
+}
+public void setTaille(Double taille) {
+	this.taille = taille;
+}
+public Candidature getCandidature1() {
+	return candidature1;
+}
+public void setCandidature1(Candidature candidature1) {
+	this.candidature1 = candidature1;
+}
+
+
+}

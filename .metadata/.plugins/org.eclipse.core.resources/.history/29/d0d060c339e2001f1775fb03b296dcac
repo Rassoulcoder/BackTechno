@@ -1,0 +1,69 @@
+package com.example.demo.dto;
+
+import java.sql.Date;
+
+
+import com.example.demo.modele.AnneeAcademic;
+;
+
+public class AnnonceDto {
+	private Long idannnce;
+	private String titre;
+	private String description;
+	private Date datepubli;
+	//private List<User> users;
+	private Integer annedebut;
+	private Long iduser;
+	public AnnonceDto(String titre, String description, Date datepubli, /*List<User> users ,*/ AnneeAcademic anneac,Long iduse,Integer annedebut) {
+		super();
+		this.titre = titre;
+		this.description = description;
+		this.datepubli = datepubli;
+		//this.users = users;
+		//this.anneac = anneac;
+		this.annedebut = annedebut;
+		this.iduser = iduse;
+	}
+	public AnnonceDto() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public Long getIdannnce() {
+		return idannnce;
+	}
+	public void setIdannnce(Long idannnce) {
+		this.idannnce = idannnce;
+	}
+	public String getTitre() {
+		return titre;
+	}
+	public void setTitre(String titre) {
+		this.titre = titre;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	public Date getDatepubli() {
+		return datepubli;
+	}
+	public void setDatepubli(Date datepubli) {
+		this.datepubli = datepubli;
+	}
+	public Integer getAnnedebut() {
+		return annedebut;
+	}
+	public void setAnnedebut(Integer annedebut) {
+		this.annedebut = annedebut;
+	}
+	public Long getIduser() {
+		return iduser;
+	}
+	public void setIduser(Long iduser) {
+		this.iduser = iduser;
+	}
+
+
+}

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="java.lang.Override"/>
+    <fullyQualifiedTypeName name="jakarta.persistence.Entity"/>
+    <fullyQualifiedTypeName name="jakarta.persistence.Id"/>
+    <fullyQualifiedTypeName name="jakarta.persistence.GeneratedValue"/>
+    <fullyQualifiedTypeName name="jakarta.persistence.GenerationType"/>
+    <fullyQualifiedTypeName name="jakarta.persistence.OneToMany"/>
+    <fullyQualifiedTypeName name="jakarta.persistence.ManyToMany"/>
+    <fullyQualifiedTypeName name="jakarta.persistence.ManyToOne"/>
+    <fullyQualifiedTypeName name="org.springframework.data.jpa.repository.JpaRepository"/>
+    <fullyQualifiedTypeName name="com.example.demo.modele.Candidature"/>
+    <fullyQualifiedTypeName name="com.example.demo.modele.Document"/>
+    <fullyQualifiedTypeName name="com.example.demo.modele.Notification"/>
+    <fullyQualifiedTypeName name="com.example.demo.modele.AnneeAcademic"/>
+    <fullyQualifiedTypeName name="com.example.demo.repository.AnnoceRepository"/>
+    <fullyQualifiedTypeName name="java.lang.Integer"/>
+    <fullyQualifiedTypeName name="java.lang.String"/>
+    <fullyQualifiedTypeName name="org.springframework.stereotype.Service"/>
+    <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
+    <fullyQualifiedTypeName name="com.example.demo.service.userService"/>
+    <fullyQualifiedTypeName name="com.example.demo.modele.Annonce"/>
+    <fullyQualifiedTypeName name="com.example.demo.service.annonceService"/>
+    <fullyQualifiedTypeName name="com.example.demo.dto.AnnonceDto"/>
+    <fullyQualifiedTypeName name="jakarta.transaction.Transactional"/>
+    <fullyQualifiedTypeName name="com.example.demo.security.JWTAuthorizationFilter"/>
+</qualifiedTypeNameHistroy>

@@ -1,0 +1,65 @@
+package com.example.demo.modele;
+
+import java.sql.Date;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+@Entity
+public class AnneeAcademic {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+ private Long idAnnee;
+ private Date datedebut;
+ private Date datedefin;
+ @OneToMany(mappedBy="anneac")
+	@JsonIgnore
+	private List<Annonce> annonce;
+public AnneeAcademic() {
+	super();
+	// TODO Auto-generated constructor stub
+}
+public AnneeAcademic(Date datedebut, Date datedefin, List<Annonce> annonce) {
+	super();
+	this.datedebut = datedebut;
+	this.datedefin = datedefin;
+	this.annonce = annonce;
+}
+public Long getIdannee() {
+	return idannee;
+}
+public void setIdannee(Long idannee) {
+	this.idannee = idannee;
+}
+public Date getDatedebut() {
+	return datedebut;
+}
+public void setDatedebut(Date datedebut) {
+	this.datedebut = datedebut;
+}
+public Date getDatedefin() {
+	return datedefin;
+}
+public void setDatedefin(Date datedefin) {
+	this.datedefin = datedefin;
+}
+public List<Annonce> getAnnonce() {
+	return annonce;
+}
+public void setAnnonce(List<Annonce> annonce) {
+	this.annonce = annonce;
+}
+@Override
+public String toString() {
+	return "AnneeAcademic [idannee=" + idannee + ", datedebut=" + datedebut + ", datedefin=" + datedefin + ", annonce="
+			+ annonce + "]";
+}
+ 
+ 
+
+}

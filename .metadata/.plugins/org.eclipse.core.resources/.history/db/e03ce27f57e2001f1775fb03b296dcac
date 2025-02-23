@@ -1,0 +1,42 @@
+package com.example.demo.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.demo.dto.AnnonceDto;
+
+@RestController
+@CrossOrigin
+public interface roleService {
+	@Autowired
+	annonceService annonservice.
+	@GetMapping("/all")
+	public List<AnnonceDto> getAllAnnoce(){
+		return annonservice.getAnnonce();
+	}
+	
+	 @GetMapping("/getbyid/{id}")
+	 public ProduitsDto getProdById(@PathVariable("id") Long id)
+	{
+		return produitService.getProduit(id);
+	}
+	 @PostMapping("/addprod")
+	 public ProduitsDto creationProduit(@RequestBody Produit produit)
+	 {
+		 return produitService.saveProduit(produit);
+	 }
+	 @PutMapping("/updateprod")
+	 public ProduitsDto updateProduit(@RequestBody Produit produit )
+	 {
+		 return produitService.updateProduit(produit);
+	 }
+	 @DeleteMapping("/delpro/{id}")
+	 public void deleteProduit(@PathVariable("id") Long id)
+	 {
+		 produitService.deleteProsuitById(id);
+	 }
+}

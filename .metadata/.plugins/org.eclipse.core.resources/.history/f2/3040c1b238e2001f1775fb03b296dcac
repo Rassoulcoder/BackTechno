@@ -1,0 +1,65 @@
+package com.example.demo.dto;
+
+import java.sql.Date;
+import java.util.List;
+
+import com.example.demo.modele.AnneeAcademic;
+import com.example.demo.modele.User;
+
+public class AnnonceDto {
+	private Long idannnce;
+	private String titre;
+	private String description;
+	private Date datepubli;
+	//private List<User> users;
+	private AnneeAcademic anneac;
+	public AnnonceDto(String titre, String description, Date datepubli, /*List<User> users ,*/ AnneeAcademic anneac) {
+		super();
+		this.titre = titre;
+		this.description = description;
+		this.datepubli = datepubli;
+		//this.users = users;
+		this.anneac = anneac;
+	}
+	public AnnonceDto() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public Long getIdannnce() {
+		return idannnce;
+	}
+	public void setIdannnce(Long idannnce) {
+		this.idannnce = idannnce;
+	}
+	public String getTitre() {
+		return titre;
+	}
+	public void setTitre(String titre) {
+		this.titre = titre;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	public Date getDatepubli() {
+		return datepubli;
+	}
+	public void setDatepubli(Date datepubli) {
+		this.datepubli = datepubli;
+	}
+	public List<User> getUsers() {
+		return users;
+	}
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
+	public AnneeAcademic getAnneac() {
+		return anneac;
+	}
+	public void setAnneac(AnneeAcademic anneac) {
+		this.anneac = anneac;
+	}
+
+}

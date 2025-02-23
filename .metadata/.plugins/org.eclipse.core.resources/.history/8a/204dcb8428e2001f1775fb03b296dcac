@@ -1,0 +1,31 @@
+package com.example.demo.modele;
+
+import java.sql.Date;
+
+import jakarta.persistence.ManyToOne;
+
+
+public class Notification {
+private Long idnotif;
+private String destinataire;
+private String objet;
+private String contenu;
+private Date dateenvoi;
+@ManyToOne
+private User user;
+
+public Notification() {
+	super();
+	// TODO Auto-generated constructor stub
+}
+public Notification(String destinataire, String objet, String contenu, Date dateenvoi) {
+	super();
+	this.destinataire = destinataire;
+	this.objet = objet;
+	this.contenu = contenu;
+	this.dateenvoi = dateenvoi;
+}
+
+
+
+}

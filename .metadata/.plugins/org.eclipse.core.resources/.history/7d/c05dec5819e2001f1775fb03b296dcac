@@ -1,0 +1,43 @@
+package com.gestion.annonce.modele;
+
+import java.util.List;
+
+//import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+//import jakarta.persistence.OneToMany;
+
+@Entity
+public class Candidature {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long idcandidature;
+	/*@OneToMany(mappedBy="candidature")
+	@JsonIgnore
+	private List<Candidat> candidats;*/
+@ManyToOne
+	private Annonce annonce;
+@OneToMany(mappedBy = "candidature1")
+private List<Document> documents;
+public Candidature() {
+	super();
+	// TODO Auto-generated constructor stub
+}
+public Candidature(Long idcandidature, Annonce annonce) {
+	super();
+	this.idcandidature = idcandidature;
+	this.annonce = annonce;
+}
+@Override
+public String toString() {
+	return "Candidature [idcandidature=" + idcandidature + ", annonce=" + annonce + "]";
+}
+	
+	
+
+}

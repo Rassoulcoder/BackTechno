@@ -1,0 +1,74 @@
+package com.example.demo.modele;
+
+import java.sql.Date;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+@Entity
+public class Annonce {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long idannnce;
+	private String titre;
+	private String description;
+	private Date datepubli;
+	@OneToMany(mappedBy="annonce")
+	@JsonIgnore
+	private List<User> users;
+	@ManyToOne
+	private AnneeAcademic anneac;
+	public Annonce() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public Annonce(String titre, String description, Date datepubli, List<Candidature> candidature) {
+		super();
+		this.titre = titre;
+		this.description = description;
+		this.datepubli = datepubli;
+		this.candidature = candidature;
+	}
+	public Long getIdannnce() {
+		return idannnce;
+	}
+	public void setIdannnce(Long idannnce) {
+		this.idannnce = idannnce;
+	}
+	public String getTitre() {
+		return titre;
+	}
+	public void setTitre(String titre) {
+		this.titre = titre;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	public Date getDatepubli() {
+		return datepubli;
+	}
+	public void setDatepubli(Date datepubli) {
+		this.datepubli = datepubli;
+	}
+	public List<Candidature> getCandidature() {
+		return candidature;
+	}
+	public void setCandidature(List<Candidature> candidature) {
+		this.candidature = candidature;
+	}
+	@Override
+	public String toString() {
+		return "Annonce [idannnce=" + idannnce + ", titre=" + titre + ", description=" + description + ", datepubli="
+				+ datepubli + ", candidature=" + candidature + "]";
+	}
+	
+}

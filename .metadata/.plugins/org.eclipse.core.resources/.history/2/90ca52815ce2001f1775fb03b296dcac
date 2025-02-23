@@ -1,0 +1,93 @@
+package com.example.demo.service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.demo.dto.AnnonceDto;
+import com.example.demo.modele.AnneeAcademic;
+import com.example.demo.modele.Annonce;
+import com.example.demo.repository.AnnoceRepository;
+@Service
+public class Annoceimplservice implements annonceService {
+  @Autowired
+	AnnoceRepository annoncerepo;
+	@Override
+	public AnnonceDto saveAnnonce(Annonce p) {
+		return convertEntityToDto( annoncerepo.save(p));
+	}
+
+	@Override
+	public AnnonceDto updateAnnonce(Annonce p) {
+		// TODO Auto-generated method stub
+		return convertEntityToDto(annoncerepo.save(p));	}
+
+	@Override
+	public void deleteAnnonce(Annonce p) {
+		 annoncerepo.delete(p);
+
+	}
+
+	@Override
+	public void deleteAnnonceById(Long id) {
+		annoncerepo.deleteById(id);		
+
+	}
+
+	@Override
+	public AnnonceDto getAnnonce(Long id) {
+		return convertEntityToDto(annoncerepo.findById(id).get());
+
+	}
+
+	@Override
+	public List<AnnonceDto> getAllannonce() {
+		return annoncerepo.findAll().stream().map(this::convertEntityToDto)
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public List<Annonce> findByTitre(String nom) {
+		return annoncerepo.findByTitre(nom);
+
+	}
+
+	@Override
+	public List<Annonce> findByTitreContains(String nom) {
+		// TODO Auto-generated method stub
+		return annoncerepo.findByTitreContains(nom);
+	}
+
+	@Override
+	public List<Annonce> findByAnneeAcademic(AnneeAcademic annee) {
+		// TODO Auto-generated method stub
+		return annoncerepo.findByAnneac(annee);
+	}
+
+	@Override
+	public List<Annonce> findByAnneeAcademicIdAnnee(Long id) {
+		return annoncerepo.findByAnneeAcademic_Id(id);
+	}
+
+	@Override
+	public List<Annonce> findByOrderByTitreAsc() {
+		
+		return annoncerepo.findByOrderByTitretAsc();
+	}
+
+	@Override
+	public AnnonceDto convertEntityToDto(Annonce p) {
+		AnnonceDto annoncedto = new AnnonceDto();
+		annoncedto.setAnnedebut(p.getAnneac().getDatedebut());
+		annoncedto.setDatepubli(p.getDatepubli());
+		annoncedto.setDescription(p.getDescription());
+		//produitdto.setCategorie(p.getCategorie());
+		//annoncedto.setUserst(((etUsers()).getRoles());
+		 if (p.getUsers() != null && !p.getUsers().isEmpty()) {
+	            annoncedto.setIduser(p.getUsers().get(0).getUser_id()); 
+	        }		return annoncedto;
+	}
+
+}

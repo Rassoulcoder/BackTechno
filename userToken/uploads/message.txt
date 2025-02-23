@@ -1,0 +1,91 @@
+import {Component, EventEmitter, inject, OnInit, Output} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {SectorsService} from "../services/sectors.service";
+import {SectorsRequest} from "../models/sectors.request";
+import {emailExistValidator} from "../validators/sectors-exist-validator";
+import {HttpErrorService} from "../../../share/services/http-error.service";
+import {SectorsResponse} from "../models/sectors.response";
+import {AllSectorsResponse} from "../models/all.sectors.response";
+
+@Component({
+  selector: 'app-form-sectors',
+  standalone: true,
+  imports: [
+    ReactiveFormsModule
+  ],
+  templateUrl: './form-sectors.component.html',
+  styleUrl: './form-sectors.component.css'
+})
+export class FormSectorsComponent implements OnInit{
+  sectorService: SectorsService = inject(SectorsService);
+  newSectorForm: FormGroup = this.createSectorForm();
+  fb: FormBuilder = inject(FormBuilder);
+  sectorRequest: SectorsRequest = {};
+  httpErrorService = inject(HttpErrorService);
+  allSectors: AllSectorsResponse={sectors: []};
+  @Output() loadAllSectorsAfterAddEvent = new EventEmitter<AllSectorsResponse>();
+
+  ngOnInit() {
+    this.newSectorForm = this.initForm();
+  }
+
+  private createSectorForm()  {
+    return new FormGroup({
+      sectorName: new FormControl(""),
+      sectorDescription: new FormControl("")
+    });
+  }
+  private initForm() {
+    return this.fb.group({
+      sectorName: ['', [Validators.required], [emailExistValidator(this.sectorService)]],
+      sectorDescription: ['', [Validators.required]]
+    }, {},);
+  }
+
+  onSubmit() {
+    this.sectorRequest = {
+      name: this.newSectorForm.get("sectorName")!.value,
+      description: this.newSectorForm.get("sectorDescription")!.value,
+      archive: false
+    }
+    this.sectorService.save<SectorsRequest,SectorsResponse>('sectors', this.sectorRequest).subscribe({
+        next: (response) => {
+          console.log(response);
+        },
+        error: (error) => {
+          this.httpErrorService.handleError(error);
+        },
+        complete: () => {
+          console.log('save complete');
+          this.getAllSectors ();
+          this.newSectorForm.reset();
+        }
+
+      }
+    );
+  }
+
+  isValidTouchedOrDirty(fildName: string) {
+    return this.newSectorForm.controls[fildName].invalid && (this.newSectorForm.controls[fildName].touched || this.newSectorForm.controls[fildName].dirty);
+  }
+
+  fieldHasError(fieldName: string, errorValue: string) {
+    return this.newSectorForm.controls[fieldName].errors?.[errorValue];
+  }
+
+  getAllSectors () {
+    this.sectorService.all<SectorsResponse[]>('sectors').subscribe({
+        next: (response) => {
+          this.allSectors.sectors = response;
+          this.loadAllSectorsAfterAddEvent.emit(this.allSectors);
+        },
+        error: (error) => {
+          this.httpErrorService.handleError(error);
+        },
+        complete: () => {
+          console.log('getting all sectors after save complete');
+        }
+      }
+    );
+  }
+}

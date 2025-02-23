@@ -1,0 +1,89 @@
+package com.example.demo.service;
+
+import java.util.ArrayList;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.example.demo.modele.Role;
+import com.example.demo.modele.User;
+import com.example.demo.repository.RoleRepository;
+import com.example.demo.repository.UserRepository;
+import com.example.demo.service.exceptions.EmailAlreadyExistsException;
+import com.example.demo.service.register.RegistrationRequest;
+
+@Transactional
+@Service
+public class Userimplservice implements userService {
+    @Autowired
+	UserRepository userrepository;
+    @Autowired
+    RoleRepository rolerepository;
+    @Autowired
+    BCryptPasswordEncoder bcryptpwd;
+	@Override
+	public User saveUser(User user) {
+	    user.setPassword(bcryptpwd.encode(user.getPassword()));
+		return userrepository.save(user);
+	}
+
+	@Override
+	public User findUserByUsername(String username) {
+		// TODO Auto-generated method stub
+		return userrepository.findByUsername(username);
+	}
+
+	@Override
+	public Role addRole(Role role) {
+		// TODO Auto-generated method stub
+		return rolerepository.save(role);
+	}
+
+	@Override
+	public User addRoleToUser(String username, String rolename) {
+		User usr = userrepository.findByUsername(username);
+		Role role = rolerepository.findByRole(rolename);
+		usr.getRoles().add(role);
+		//userrepository.save(usr);
+		return usr ;
+	}
+
+	@Override
+	public List<User> findAllUsers() {
+		
+		return userrepository.findAll();
+	}
+
+	@Override
+	public User registerUser(RegistrationRequest request) {
+		Optional<User> optinaluser = userrepository.findByEmail(request.getEmail());
+		if(optinaluser.isPresent())
+		{
+			throw new EmailAlreadyExistsException("Email déjà existant!");
+		
+		}
+		User newUser = new User();
+		newUser.setUsername(request.getUsername());
+		newUser.setEmail(request.getEmail());
+		newUser.setNom(request.getNom());
+		newUser.setPrenom(request.getPrenom());
+		newUser.setTelephone(request.getTelephone());
+		newUser.setPassword( bcryptpwd.encode(request.getPassword()));
+		newUser.setEnabled(false);
+        userrepository.save(newUser);
+        
+        Role r = rolerepository.findByRole("USER");
+        List<Role> roles = new ArrayList<>();
+        roles.add(r);
+        newUser.setRoles(roles);
+		return userrepository.save(newUser);
+	}
+
+
+
+}
