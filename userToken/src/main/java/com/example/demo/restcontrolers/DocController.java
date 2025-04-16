@@ -23,15 +23,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 
 @RestController
-@CrossOrigin(origins = "*",allowedHeaders = "*")
+@CrossOrigin(origins = "*")
 @RequestMapping(value = "/api/v1/document",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 public class DocController {
 	@Autowired
 	private docService docservice;
 	
 	@PostMapping(value = "/envoyer", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile file){
-		docservice.saveFile(file);
+	public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile file,
+			@RequestParam("candidatureId") Long candidatureId){
+		docservice.saveFile(file,candidatureId);
 		return ResponseEntity.ok("Fichier enregietrer avec succes"+file.getOriginalFilename());		
 	}
 	

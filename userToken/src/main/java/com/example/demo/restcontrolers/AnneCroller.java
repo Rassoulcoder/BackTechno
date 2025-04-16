@@ -18,7 +18,7 @@ import com.example.demo.modele.AnneeAcademic;
 import com.example.demo.service.anneeService;
 
 @RestController
-@CrossOrigin(origins = "*",allowedHeaders = "*")
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/v1/annee")
 public class AnneCroller {
 	@Autowired

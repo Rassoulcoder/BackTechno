@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.dto.CandidatureDto;
+import com.example.demo.modele.Candidature;
 import com.example.demo.service.candidatureService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -24,8 +25,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 
 @RestController
-@CrossOrigin(origins = "*",allowedHeaders = "*")
-@RequestMapping(value ="/api/v1/postule", consumes = "application/json",produces = MediaType.APPLICATION_JSON_VALUE)
+@CrossOrigin(origins = "*")
+@RequestMapping(value ="/api/v1/postule", consumes = "application/json")
 public class CandidatureController {
    @Autowired
    candidatureService candidatureservice;
@@ -49,9 +50,14 @@ public class CandidatureController {
        return ResponseEntity.ok(savedCandidature);
    
 }
-   @GetMapping("/user")
+  /* @GetMapping("/user")
    public List<CandidatureDto> getUserCandidature() {
        return candidatureservice.getAllcandidatureUser();
-   }   
+   }   */
+   @GetMapping(value = "/all", produces = "application/json")
+   public List<Candidature> getMethodName() {
+       return candidatureservice.getAll();
+   }
+   
 
 }

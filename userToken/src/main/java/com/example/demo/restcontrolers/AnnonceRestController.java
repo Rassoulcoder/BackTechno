@@ -23,7 +23,7 @@ import com.example.demo.service.anneeService;
 import com.example.demo.service.annonceService;
 
 @RestController
-@CrossOrigin(origins = "*",allowedHeaders = "*")
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/v1/anonnce")
 public class AnnonceRestController {
 	@Autowired

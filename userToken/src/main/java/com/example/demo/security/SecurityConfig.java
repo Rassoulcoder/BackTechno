@@ -34,22 +34,22 @@ public class SecurityConfig {
 		.cors(cors -> cors.configurationSource(new CorsConfigurationSource()
 		{
 			@Override
-			public CorsConfiguration getCorsConfiguration(HttpServletRequest
-					request) {
-				CorsConfiguration cors = new CorsConfiguration();
-
-				cors.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
-				cors.setAllowedMethods(Collections.singletonList("*"));
-				cors.setAllowedHeaders(Collections.singletonList("*"));
-				cors.setExposedHeaders(Collections.singletonList("Authorization"));
-				return cors;
+		    public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
+                CorsConfiguration cors = new CorsConfiguration();
+                cors.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
+                cors.setAllowedMethods(Collections.singletonList("*"));
+                cors.setAllowCredentials(true);
+                cors.setAllowedHeaders(Collections.singletonList("*"));
+                cors.setExposedHeaders(Collections.singletonList("Authorization"));
+                cors.setMaxAge(3600L);
+                return cors;
 			}
 		}))
 		.authorizeHttpRequests(requests -> requests
-				.requestMatchers(HttpMethod.POST, "/api/v1/user","/login", "/api/v1/postule", "/api/v1/anonnce","/error").permitAll()
+				.requestMatchers(HttpMethod.POST, "/api/v1/user","/login", "/api/v1/postule", "/api/v1/anonnce","/error", "/api/v1/user/registerAdmin").permitAll()
 				.requestMatchers("/ap1/v1/document/envoyer","/ap1/v1/document/docs","/ap1/v1/document/files/{filename:.+}","/api/v1/user/verifyEmail/**").permitAll()
-			    .requestMatchers(HttpMethod.GET, "/login", "/error").permitAll()
-			    .requestMatchers("/all", "/api/v1/user/registerAdmin").hasAuthority("ADMIN")
+			    .requestMatchers(HttpMethod.GET, "/login", "/error","/api/v1/postule/user","/api/v1/user/candi","/api/v1/anonnce").permitAll()
+			    .requestMatchers("/all").hasAuthority("ADMIN")
 			    .anyRequest().authenticated()).addFilterBefore(new JWTAuthenticationFilter(authmgr), 
 						UsernamePasswordAuthenticationFilter.class)
 		.addFilterBefore(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class); 

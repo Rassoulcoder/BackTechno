@@ -3,8 +3,9 @@ package com.example.demo.modele;
 //import java.sql.Date;
 
 //import java.time.Date;
+import java.io.Serializable;
 import java.util.List;
-import java.util.Optional;
+
 import java.util.Date;
 
 
@@ -23,7 +24,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Version;
 @Entity
-public class Annonce {
+public class Annonce implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idannnce;

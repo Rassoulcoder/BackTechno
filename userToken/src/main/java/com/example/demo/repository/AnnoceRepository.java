@@ -18,6 +18,7 @@ public interface AnnoceRepository extends JpaRepository<Annonce, Long> {
 	List<Annonce> findByAnneacIdAnnee(Long idAnnee);
 	List<Annonce> findByOrderByTitreAsc();
 	//List<User> findByUsersUser_id(Long id);
+	Annonce findByIdannnce(Long idannnce);
 	
 
 }

@@ -1,4 +1,5 @@
 package com.example.demo.modele;
+import java.io.Serializable;
 import java.util.List;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -14,7 +15,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
 @Entity
-public class User {
+public class User implements Serializable {
 @Id
 @GeneratedValue (strategy=GenerationType.IDENTITY)
 private Long userid;
@@ -26,6 +27,7 @@ private String prenom;
 private Integer Telephone;
 private String password;
 private Boolean enabled;
+@Column(unique=true)
 private String email;
 @OneToMany(mappedBy = "user")
 private List<Notification> notif;

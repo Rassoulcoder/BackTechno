@@ -15,4 +15,6 @@ public interface candidatureService {
 	public List<CandidatureDto> getAllcandidature();
 	public List<CandidatureDto> getAllcandidatureUser();
 	Long getAuthenticatedUserId();
+	public List<Candidature> getAll();
+	 public List<Candidature> getCandidaturesByConnectedUser() ;
 }

@@ -1,13 +1,16 @@
 package com.example.demo.dto;
 
+import java.io.Serializable;
 import java.util.List;
+
 
 import com.example.demo.modele.Annonce;
 import com.example.demo.modele.Document;
+import com.example.demo.modele.User;
 
-import jakarta.persistence.Version;
+//import jakarta.persistence.Version;
 
-public class CandidatureDto {
+public class CandidatureDto implements Serializable {
 
 	private Long idcandidature;
 	
@@ -21,6 +24,7 @@ public class CandidatureDto {
 	private String usernamedto;
 	private String titreannoncedto;
 	private Annonce annonce;
+	private List<User> userdto;
     //@JsonProperty("idannonce")
 	private Long idannonce;
 	/*@Version
@@ -30,7 +34,7 @@ public class CandidatureDto {
 	}
 	public CandidatureDto(Long idcandidature, String nomcandidature, List<Long> iddocdto, String name, String url,
 			List<Document> documentdto, Long iduserdto, String usernamedto, String titreannoncedto, Annonce annonce,
-			Long idannonce) {
+			Long idannonce,List<User> userdto) {
 		super();
 		this.nomcandidature = nomcandidature;
 		this.iddocdto = iddocdto;
@@ -43,6 +47,7 @@ public class CandidatureDto {
 		this.annonce = annonce;
 		this.idannonce = idannonce;
 		this.idcandidature= idcandidature;
+		this.userdto = userdto;
 	}
 	public Long getIdcandidature() {
 		return idcandidature;
@@ -123,6 +128,12 @@ public class CandidatureDto {
 				+ iddocdto + ", name=" + name + ", url=" + url + ", documentdto=" + documentdto + ", iduserdto="
 				+ iduserdto + ", usernamedto=" + usernamedto + ", titreannoncedto=" + titreannoncedto + ", annonce="
 				+ annonce + ", idannonce=" + idannonce + "]";
+	}
+	public List<User> getUserdto() {
+		return userdto;
+	}
+	public void setUserdto(List<User> userdto) {
+		this.userdto = userdto;
 	}
 
 

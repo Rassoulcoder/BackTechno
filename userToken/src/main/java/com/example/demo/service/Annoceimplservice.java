@@ -3,11 +3,13 @@ package com.example.demo.service;
 import java.util.Collections;
 
 
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 //import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.OptimisticLockingFailureException;
@@ -16,6 +18,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.dto.AnnonceDto;
+import com.example.demo.dto.CandidatureDto;
+import com.example.demo.dto.AnnonceDto.StatutAnnonce;
 import com.example.demo.modele.AnneeAcademic;
 import com.example.demo.modele.Annonce;
 import com.example.demo.modele.User;
@@ -57,7 +61,7 @@ public class Annoceimplservice implements annonceService {
 			return convertEntityToDto(annoncerepo.save(convertDtoToEntity(p)));
 		} catch (OptimisticLockingFailureException e) {
 			// Gestion du conflit de version
-			throw new RuntimeException("Conflit de mise à jour : l'annonce a été modifiée par un autre utilisateur.");
+			throw new RuntimeException("");
 		}
 	}
 
@@ -69,7 +73,7 @@ public class Annoceimplservice implements annonceService {
 			return convertEntityToDto(annoncerepo.save(convertDtoToEntity(p)));
 		} catch (OptimisticLockingFailureException e) {
 			// Gestion du conflit de version
-			throw new RuntimeException("Conflit de mise à jour : l'annonce a été modifiée par un autre utilisateur.");
+			throw new RuntimeException("");
 		}	}
 
 	@Override
@@ -137,8 +141,9 @@ public class Annoceimplservice implements annonceService {
 
 	@Override
 	public AnnonceDto convertEntityToDto(Annonce p) 
-{
-		AnnonceDto annoncedto = new AnnonceDto();
+{  		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
+
+		AnnonceDto annoncedto = modelMapper.map(p, AnnonceDto.class);;
         annoncedto.setDatepubli(p.getDatepubli());
         annoncedto.setTitre(p.getTitre());
         annoncedto.setDescription(p.getDescription());
@@ -148,6 +153,9 @@ public class Annoceimplservice implements annonceService {
         annoncedto.setAnnedefin(p.getAnneac().getDatedefin());
         annoncedto.setAnneeac(p.getAnneac());
        annoncedto.setCandidature(p.getCandidature());
+       annoncedto.setStatutdto(StatutAnnonce.valueOf(p.getStatut().toString()));
+      
+
         if (p.getAnneac() != null) {
             annoncedto.setAnnedebut(p.getAnneac().getDatedebut());
         } else {
@@ -163,14 +171,16 @@ public class Annoceimplservice implements annonceService {
 
 	@Override
 	public Annonce convertDtoToEntity(AnnonceDto pDto) {
-		Annonce annonce = new Annonce();
-
+		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
+		Annonce annonce =modelMapper.map(pDto, Annonce.class);
 		annonce.setDatepubli(pDto.getDatepubli());
 		annonce.setDescription(pDto.getDescription());
 		annonce.setIdannnce(pDto.getIdannnce());
 		annonce.setTitre(pDto.getTitre());
 		annonce.setAnneac(pDto.getAnneeac());
 		annonce.setCandidature(pDto.getCandidature());
+	    annonce.setStatut(com.example.demo.modele.Annonce.StatutAnnonce.valueOf(pDto.getStatutdto().toString()));
+
 		Optional<User> user = userep.findByUserid(pDto.getIduser());
 		if (user.isEmpty()) {
 			throw new IllegalArgumentException("Utilisateur introuvable avec l'ID : " + pDto.getIduser());

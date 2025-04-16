@@ -1,6 +1,7 @@
 package com.example.demo.modele;
 
 //import java.sql.Date;
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import jakarta.persistence.CascadeType;
@@ -12,7 +13,7 @@ import jakarta.persistence.ManyToOne;
 
 
 @Entity
-public class Notification {
+public class Notification implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idnotif;

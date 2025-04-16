@@ -3,6 +3,7 @@ package com.example.demo.modele;
 //import java.sql.Date;
 
 //import java.time.Date;
+import java.io.Serializable;
 import java.util.List;
 
 import java.util.Date;
@@ -17,7 +18,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 @Entity
-public class AnneeAcademic {
+public class AnneeAcademic implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idAnnee;

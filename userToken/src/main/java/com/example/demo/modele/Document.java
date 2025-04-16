@@ -1,13 +1,17 @@
 package com.example.demo.modele;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Version;
+
+import java.io.Serializable;
+
 @Entity
-public class Document {
+public class Document implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long iddoc;
@@ -17,11 +21,10 @@ public class Document {
 	@Version
 	private Integer version;
 	
-	@ManyToOne(cascade = {CascadeType.MERGE,CascadeType.MERGE})
+	@ManyToOne(cascade = {CascadeType.MERGE,CascadeType.MERGE}, fetch = FetchType.EAGER) 
 	private Candidature candidature1;
 	public Document() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public Document(String name, String url, Candidature candidature1) {
 		super();

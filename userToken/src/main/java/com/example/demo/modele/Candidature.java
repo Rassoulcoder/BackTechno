@@ -1,7 +1,9 @@
 package com.example.demo.modele;
 
+import java.io.Serializable;
 import java.util.List;
-import java.util.Date;
+
+//import java.util.Date;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -11,16 +13,18 @@ import jakarta.persistence.CascadeType;
 //import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.Version;
+//import jakarta.persistence.Version;
 //import jakarta.persistence.OneToMany;
 
 @Entity
-public class Candidature {
+public class Candidature implements Serializable {
 	@Id
 	@GeneratedValue (strategy=GenerationType.IDENTITY)
 	private Long idcandidature;
@@ -30,8 +34,9 @@ public class Candidature {
 	@JsonIgnore
 	private List<User> user;
 	@ManyToOne(cascade = {CascadeType.MERGE,CascadeType.MERGE})
+	@JoinColumn(name = "idannnce", nullable = false)
 	private Annonce annonce1;
-	@OneToMany(mappedBy = "candidature1" , cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "candidature1" , cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER) 
 	@JsonIgnore
 	private List<Document> documents;
 	/*@Version

@@ -2,19 +2,25 @@ package com.example.demo.dto;
 
 //import java.sql.Date;
 //import java.time.Date;
+import java.io.Serializable;
 import java.util.Date;
+
 import java.util.List;
-import java.util.Optional;
+//import java.util.Optional;
 
 import com.example.demo.modele.AnneeAcademic;
 //import com.example.demo.modele.User;
 import com.example.demo.modele.Candidature;
+//import com.example.demo.modele.Annonce.StatutAnnonce;
+import com.example.demo.modele.User;
 
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 /*import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;*/
 import jakarta.persistence.Version;
-public class AnnonceDto {
+public class AnnonceDto  implements Serializable {
 
 	private Long idannnce;
 	private String titre;
@@ -24,28 +30,46 @@ public class AnnonceDto {
 	private Date annedebut;
 	private Date annedefin;
 	private List<Candidature> candidature;
-
+	@Enumerated(EnumType.STRING)
+    private StatutAnnonce statutdto;
 	@Version
 		private Integer version;
 		//private Long idanneac;
 		private AnneeAcademic anneeac;
-
+		private List<User> userdto;
+		private String usernamedto;
 
 
 	private Long iduser;
-	public AnnonceDto(String titre, String description, Date datepubli, /*List<User> users/Long idanneac,*/Long iduse,Date annedebut, Date annedefin,/*User users,*/ AnneeAcademic anneeac,List<Candidature> candidature) {
+
+	 public AnnonceDto(Long idannnce, String titre, String description, Date datepubli, Date annedebut, Date annedefin,
+			List<Candidature> candidature, StatutAnnonce statutdto, Integer version, AnneeAcademic anneeac,
+			List<User> userdto, String usernamedto, Long iduser) {
 		super();
+		this.idannnce = idannnce;
 		this.titre = titre;
 		this.description = description;
 		this.datepubli = datepubli;
-		//this.users = users;
-		//this.idanneac = idanneac;
 		this.annedebut = annedebut;
-		this.iduser = iduse;
+		this.annedefin = annedefin;
+		this.candidature = candidature;
+		this.statutdto = statutdto;
+		this.version = version;
 		this.anneeac = anneeac;
-		this.setAnnedefin(annedefin);
-		this.candidature=candidature;
+		this.userdto = userdto;
+		this.usernamedto = usernamedto;
+		this.iduser = iduser;
 	}
+	public enum StatutAnnonce {
+	        EN_COURS, 
+	        TERMINEE
+	    }
+	 public StatutAnnonce getStatutdto() {
+			return statutdto;
+		}
+		public void setStatutdto(StatutAnnonce statut) {
+			this.statutdto = statut;
+		}
 	public AnnonceDto() {
 		super();
 	}
@@ -126,6 +150,18 @@ public class AnnonceDto {
 	}
 	public void setCandidature(List<Candidature> candidature) {
 		this.candidature = candidature;
+	}
+	public List<User> getUserdto() {
+		return userdto;
+	}
+	public void setUserdto(List<User> userdto) {
+		this.userdto = userdto;
+	}
+	public String getUsernamedto() {
+		return usernamedto;
+	}
+	public void setUsernamedto(String usernamedto) {
+		this.usernamedto = usernamedto;
 	}
 	
 
