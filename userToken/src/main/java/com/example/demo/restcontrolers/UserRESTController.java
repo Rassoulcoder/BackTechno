@@ -6,6 +6,7 @@ import java.util.List;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -67,5 +68,17 @@ public class UserRESTController {
 	   public List<Candidature> getMethodName() {
 	       return candi.getAll();
 	   }
+	@GetMapping("/admins")
+	public ResponseEntity<List<User>> getAllAdmins() {
+		List<User> admins = userservice.findAllUsers();
+		return ResponseEntity.ok(admins);
+	}
+	@GetMapping("/users")
+	public ResponseEntity<List<User>> getUsers() {
+		List<User> users = userservice.findAllEtudUsers();
+		return ResponseEntity.ok(users);
+
+
+	}
 	
 }

@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -37,6 +38,7 @@ public class Userimplservice implements userService {
 	RoleRepository rolerepository;
 	@Autowired
 	BCryptPasswordEncoder bcryptpwd;
+	User u;
 	@Override
 	public User saveUser(User user) {
 		user.setPassword(bcryptpwd.encode(user.getPassword()));
@@ -67,9 +69,19 @@ public class Userimplservice implements userService {
 	@Override
 	public List<User> findAllUsers() {
 
-		return userrepository.findAll();
+		return userrepository.findAll()
+				.stream()
+				.filter(u -> "ADMIN".equalsIgnoreCase(u.getRoles().get(0).getRole()))
+				.collect(Collectors.toList());
 	}
+	@Override
+	public List<User> findAllEtudUsers() {
 
+		return userrepository.findAll()
+				.stream()
+				.filter(u -> "USER".equalsIgnoreCase(u.getRoles().get(0).getRole()))
+				.collect(Collectors.toList());
+	}
 	@Override
 	public User registerUser(RegistrationRequest request) {
 		Optional<User> optinaluser = userrepository.findByEmail(request.getEmail());
