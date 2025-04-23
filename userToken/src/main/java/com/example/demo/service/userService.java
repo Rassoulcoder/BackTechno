@@ -13,6 +13,7 @@ public interface userService {
 	Role addRole(Role role);
 	User addRoleToUser(String username, String rolename);
 	List<User> findAllUsers();
+	List<User> findAllEtudUsers();
 	User registerUser(RegistrationRequest request);
 	User registerUserAdmin(RegistrationRequest request);
 	void sendEmailUser(User u, String code);
